@@ -1,22 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project_kitchen_recipes/models/category.dart';
-
-import '../screens/category_meals_screen.dart';
+import 'package:project_kitchen_recipes/utils/app_routes.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
 
   const CategoryItem(this.category, {super.key});
 
- /*
+  /*
   * Implements navigation
   * */
-  void _selectCategory(BuildContext context){
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) {
-        return const CategoryMealsScreen();
-      }),
-      );
+  void _selectCategory(BuildContext context) {
+    Navigator.of(context).pushNamed(AppRoutes.CATEGORIES_MEALS, arguments: category);
   }
 
   @override
@@ -34,14 +29,17 @@ class CategoryItem extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   category.color.withOpacity(0.2),
-                  category.color.withOpacity(0.5),
-                  category.color.withOpacity(0.8),
+                  // category.color.withOpacity(0.5),
+                  // category.color.withOpacity(0.8),
                   category.color
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               )),
-          child: Text(category.title, style: Theme.of(context).textTheme.bodyLarge,)),
+          child: Text(
+            category.title,
+            style: Theme.of(context).textTheme.bodyLarge,
+          )),
     );
   }
 }
