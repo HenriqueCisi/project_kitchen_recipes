@@ -1,7 +1,5 @@
-// ignore_for_file: constant_identifier_names
-
 enum MealComplexity{
-  Simple,
-  Medium,
-  Difficult
+  simple,
+  medium,
+  difficult
 }

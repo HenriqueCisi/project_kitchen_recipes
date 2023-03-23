@@ -1,7 +1,5 @@
-// ignore_for_file: constant_identifier_names
-
 enum MealCost{
-  Cheap,
-  Fair,
-  Expensive
+  cheap,
+  fair,
+  expensive
 }
