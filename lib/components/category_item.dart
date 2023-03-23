@@ -8,6 +8,9 @@ class CategoryItem extends StatelessWidget {
 
   const CategoryItem(this.category, {super.key});
 
+ /*
+  * Implements navigation
+  * */
   void _selectCategory(BuildContext context){
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) {
