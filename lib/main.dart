@@ -16,17 +16,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Vamos Cozinhar?',
       theme: ourTheme.copyWith(
-          colorScheme:
-              ourTheme.colorScheme.copyWith(primary: Colors.pink),
+          colorScheme: ourTheme.colorScheme.copyWith(primary: Colors.pink),
           textTheme: ourTheme.textTheme.copyWith(
             titleLarge: const TextStyle(
-                fontSize: 20, color: Colors.white, fontFamily: 'Raleway', fontWeight: FontWeight.bold),
+                fontSize: 20,
+                color: Colors.white,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold),
             bodyLarge: const TextStyle(
-                fontSize: 22, color: Colors.black, fontFamily: 'RobotoCondensed'),
+                fontSize: 22,
+                color: Colors.black,
+                fontFamily: 'RobotoCondensed'),
           )),
       routes: {
         AppRoutes.HOME: (context) => const CategoriesScreen(),
-        AppRoutes.CATEGORIES_MEALS: (context) =>  const CategoryMealsScreen(),
+        AppRoutes.CATEGORIES_MEALS: (context) => const CategoryMealsScreen(),
+        AppRoutes.MEAL_DETAIL: (context) => const MealDetailScreen()
       },
     );
   }
