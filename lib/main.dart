@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_kitchen_recipes/screens/categories_screen.dart';
 import 'package:project_kitchen_recipes/screens/category_meals_screen.dart';
+import 'package:project_kitchen_recipes/screens/favourite_screen.dart';
 import 'package:project_kitchen_recipes/screens/meal_detail_screen.dart';
+import 'package:project_kitchen_recipes/screens/tabs_screen.dart';
 import 'package:project_kitchen_recipes/utils/app_routes.dart';
 
 void main() => runApp(MyApp());
@@ -29,9 +31,10 @@ class MyApp extends StatelessWidget {
                 fontFamily: 'RobotoCondensed'),
           )),
       routes: {
-        AppRoutes.HOME: (context) => const CategoriesScreen(),
+        AppRoutes.HOME: (context) => const TabsScreen(),
         AppRoutes.CATEGORIES_MEALS: (context) => const CategoryMealsScreen(),
-        AppRoutes.MEAL_DETAIL: (context) => const MealDetailScreen()
+        AppRoutes.MEAL_DETAIL: (context) => const MealDetailScreen(),
+        AppRoutes.FAVOURITE_MEALS: (context) => const FavouriteScreen()
       },
     );
   }
