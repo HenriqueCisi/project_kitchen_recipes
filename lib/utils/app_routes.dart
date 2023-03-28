@@ -4,4 +4,5 @@ class AppRoutes {
   static const CATEGORIES_MEALS = '/categories-meals';
   static const MEAL_DETAIL = '/meal-detail';
   static const FAVOURITE_MEALS = '/favourite-meals';
+  static const SETTINGS = '/settings';
 }
