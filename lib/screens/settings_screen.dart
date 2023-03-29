@@ -3,14 +3,25 @@ import 'package:project_kitchen_recipes/components/main_drawer.dart';
 import 'package:project_kitchen_recipes/models/settings.dart';
 
 class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({super.key});
+  final Function(Settings) onSettingsChanged;
+  final Settings newSettings;
+
+  const SettingsScreen(this.onSettingsChanged,this.newSettings,{super.key});
+
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var settings = Settings();
+  // ignore: prefer_typing_uninitialized_variables
+  var settings;
+
+  @override
+  void initState() {
+    super.initState();
+    settings = widget.newSettings;
+  }
 
   Widget _createSwitch(
       String title, String subtitle, bool value, Function(bool) onChanged) {
@@ -18,7 +29,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
         title: Text(title),
         subtitle: Text(subtitle),
         value: value,
-        onChanged: onChanged);
+        onChanged: (value){
+          onChanged(value);
+          widget.onSettingsChanged(settings);
+        });
   }
 
   @override

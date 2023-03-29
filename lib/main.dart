@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_kitchen_recipes/data/dummy_data.dart';
 import 'package:project_kitchen_recipes/screens/category_meals_screen.dart';
 import 'package:project_kitchen_recipes/screens/favourite_screen.dart';
 import 'package:project_kitchen_recipes/screens/meal_detail_screen.dart';
@@ -6,12 +7,40 @@ import 'package:project_kitchen_recipes/screens/settings_screen.dart';
 import 'package:project_kitchen_recipes/screens/tabs_screen.dart';
 import 'package:project_kitchen_recipes/utils/app_routes.dart';
 
-void main() => runApp(MyApp());
+import 'models/meal.dart';
+import 'models/settings.dart';
 
-class MyApp extends StatelessWidget {
+void main() => runApp(const MyApp());
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   final ThemeData ourTheme = ThemeData();
 
-  MyApp({super.key});
+  Settings settings = Settings();
+  List<Meal> _availableMeals = dummyMeals;
+
+  void _filteredMeals(Settings settings) {
+    setState(() {
+      this.settings = settings;
+      _availableMeals = dummyMeals.where((meal) {
+        final filterGluten = settings.isGlutenFree && !meal.isGlutenFree;
+        final filterLactose = settings.isLactoseFree && !meal.isLactoseFree;
+        final filterVegetarian = settings.isVegetarian && !meal.isVegetarian;
+        final filterVegan = settings.isVegan && !meal.isVegan;
+
+        return !filterGluten &&
+            !filterLactose &&
+            !filterVegetarian &&
+            !filterVegan;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +61,10 @@ class MyApp extends StatelessWidget {
           )),
       routes: {
         AppRoutes.HOME: (context) => const TabsScreen(),
-        AppRoutes.CATEGORIES_MEALS: (context) => const CategoryMealsScreen(),
+        AppRoutes.CATEGORIES_MEALS: (context) => CategoryMealsScreen(_availableMeals),
         AppRoutes.MEAL_DETAIL: (context) => const MealDetailScreen(),
         AppRoutes.FAVOURITE_MEALS: (context) => const FavouriteScreen(),
-        AppRoutes.SETTINGS: (context) => const SettingsScreen()
+        AppRoutes.SETTINGS: (context) => SettingsScreen(_filteredMeals,settings)
       },
     );
   }
