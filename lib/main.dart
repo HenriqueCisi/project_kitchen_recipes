@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
 
   Settings settings = Settings();
   List<Meal> _availableMeals = dummyMeals;
+  final List<Meal> _favoriteMeals = [];
 
   void _filteredMeals(Settings settings) {
     setState(() {
@@ -41,6 +42,20 @@ class _MyAppState extends State<MyApp> {
       }).toList();
     });
   }
+
+  void _toogleFavorite(Meal meal) {
+    setState(() {
+      _favoriteMeals.contains(meal)
+          ? _favoriteMeals.remove(meal)
+          : _favoriteMeals.add(meal);
+    });
+  }
+
+  bool _isFavorite(Meal meal){
+    return _favoriteMeals.contains(meal);
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +75,13 @@ class _MyAppState extends State<MyApp> {
                 fontFamily: 'RobotoCondensed'),
           )),
       routes: {
-        AppRoutes.HOME: (context) => const TabsScreen(),
-        AppRoutes.CATEGORIES_MEALS: (context) => CategoryMealsScreen(_availableMeals),
-        AppRoutes.MEAL_DETAIL: (context) => const MealDetailScreen(),
-        AppRoutes.FAVOURITE_MEALS: (context) => const FavouriteScreen(),
-        AppRoutes.SETTINGS: (context) => SettingsScreen(_filteredMeals,settings)
+        AppRoutes.HOME: (context) => TabsScreen(_favoriteMeals),
+        AppRoutes.CATEGORIES_MEALS: (context) =>
+            CategoryMealsScreen(_availableMeals),
+        AppRoutes.MEAL_DETAIL: (context) =>  MealDetailScreen(_toogleFavorite, _isFavorite),
+        AppRoutes.FAVOURITE_MEALS: (context) => FavouriteScreen(_favoriteMeals),
+        AppRoutes.SETTINGS: (context) =>
+            SettingsScreen(_filteredMeals, settings)
       },
     );
   }
